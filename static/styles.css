@@ -1,0 +1,68 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.encabezado{   
+    width: 50%;  /* Ajusta el tamaño del formulario */
+    margin: 50px auto;  /* Centra el formulario en la página */
+    text-align: center;
+}   
+
+
+form {
+    display: flex; 
+    flex-direction: column;   
+    padding: 40px 50px;
+    background-color: rgb(230, 0, 35); /*color rojo de fondo*/
+    color: white;
+    border-radius: 20px; /*borde del form*/
+    width: 70%;  /* Ajusta el tamaño del formulario */
+    margin: 50px auto;  /* Centra el formulario en la página */
+}
+
+form label {
+    font-size: 16px; /*aumentar el tamaño del texto*/
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input {
+    width: 100%; /*alargar inputs*/
+    padding: 10px; /*agrandarlos*/
+    font-size: 16px; /*aumentar el tamaño del texto que se escriba*/
+    border-radius: 5px; /*borde chiquito para los inputs*/
+    border: 1px solid #ccc; /*cambiar el borde*/
+    margin-bottom: 15px;
+}
+
+
+form button{
+    background-color: rgb(240, 240, 240);
+    border: none;
+    padding: 10px 20px; 
+    font-size: 16px;
+    align-self: center; 
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+form button:hover {
+    background-color: #e0e0e0; /* Cambia el color cuando el ratón pasa por encima */
+}
+
+form span{
+    font-size: 12px; 
+    margin-top: 5px; 
+    text-align: left; 
+}
