@@ -13,6 +13,7 @@ import pickle
 import os
 import sys
 import wget
+import time
 from flask import Flask, request, render_template
 
 app = Flask(__name__)
@@ -77,19 +78,21 @@ def descargar_tablero(driver, wait, usuario, tablero):
 
     #obtener la cantidad de imágenes del tablero
     cantidad_imagenes = int(wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "div[data-test-id='board-summary-container']"))).text.split()[0])
-   
+    
    #obtener url de las imagenes
     url_fotos = set() #conjunto de imagenes
     while len(url_fotos) < cantidad_imagenes:
-        #scroll
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        body = driver.find_element(By.TAG_NAME, "body")
+        body.send_keys(Keys.DOWN)
         #elemento de cada imagen en un tablero
-        pines = driver.find_elements(By.CSS_SELECTOR, "div[data-test-id='pinrep-image']")
+        pines = driver.find_elements(By.CSS_SELECTOR, "div[data-test-id='pin']")
         for pin in pines:
             try:
+                if "PageContainer" not in pin.get_attribute("outerHTML"):
                 #obtener url y añadirla al conjunto
-                url = pin.find_element(By.CSS_SELECTOR, "img").get_attribute("src")
-                url_fotos.add(url)
+                    url = pin.find_element(By.CSS_SELECTOR, "img").get_attribute("src")
+                    if url not in url_fotos:  # Evitar agregar URLs duplicadas
+                            url_fotos.add(url)
             except:
                 pass
         print(f'total de elementos: {len(url_fotos)}')
@@ -121,8 +124,8 @@ def descargar():
     if res == "ERROR":
         driver.quit()  
     res_descargas = descargar_tablero(driver, wait, usuario, tablero)
+    input("Pulse enter para salir")
     return f'han sido descargadas {res_descargas} fotos'
-    driver.quit()    
 
 if __name__ == "__main__":
     app.run(debug=True)    
