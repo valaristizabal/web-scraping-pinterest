@@ -11,7 +11,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys 
 import pickle 
 import os
-import sys
 import wget
 import time
 from flask import Flask, request, render_template
@@ -88,11 +87,10 @@ def descargar_tablero(driver, wait, usuario, tablero):
         pines = driver.find_elements(By.CSS_SELECTOR, "div[data-test-id='pin']")
         for pin in pines:
             try:
-                if "PageContainer" not in pin.get_attribute("outerHTML"):
                 #obtener url y añadirla al conjunto
                     url = pin.find_element(By.CSS_SELECTOR, "img").get_attribute("src")
                     if url not in url_fotos:  # Evitar agregar URLs duplicadas
-                            url_fotos.add(url)
+                        url_fotos.add(url)
             except:
                 pass
         print(f'total de elementos: {len(url_fotos)}')
@@ -102,9 +100,14 @@ def descargar_tablero(driver, wait, usuario, tablero):
         os.mkdir(tablero)
     n = 0
     for url_foto in url_fotos:
+        nombre_archivo = os.path.join(tablero, os.path.basename(url_foto))
         n += 1
-        print(f'descargando {n} de {len(url_fotos)}')
-        nombre_archivo = wget.download(url_foto, tablero)
+        if not os.path.exists(nombre_archivo):
+            n += 1
+            print(f'descargando imagen número {n}')
+            wget.download(url_foto, tablero)
+        else:
+            print(f'la imagen {n} ya existe en el directorio, por lo que no se descargará')
     return len(url_fotos)
 
 @app.route('/', methods=["GET"])
