@@ -103,7 +103,6 @@ def descargar_tablero(driver, wait, usuario, tablero):
         nombre_archivo = os.path.join(tablero, os.path.basename(url_foto))
         n += 1
         if not os.path.exists(nombre_archivo):
-            n += 1
             print(f'descargando imagen número {n}')
             wget.download(url_foto, tablero)
         else:
