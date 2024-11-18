@@ -29,7 +29,7 @@ Requisitos para ejecutar el programa:
     ```bash
     pip install flask
     pip intall selenium
-    pip install webdriver-manager
+    pip install undetected-chromedriver
     ```
 
 ## Ejecución del proyecto
