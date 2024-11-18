@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from config_chrome import *
 from user_pinterest import *
+from config_chrome_undetectedChromedriver import *
 from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.support import expected_conditions as ec 
 from selenium.common.exceptions import TimeoutException 
@@ -120,7 +121,7 @@ def descargar():
     print(tablero)
     tablero = tablero.replace(" ", "-")
     print(tablero)
-    driver = iniciar_chrome()
+    driver = iniciar_webdriver(pos="derecha")
     wait = WebDriverWait(driver, 10)
     res = login_pinterest(driver, wait)
     if res == "ERROR":
